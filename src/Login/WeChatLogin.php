@@ -2,6 +2,7 @@
 namespace GoldOfficer\WeChat\Login;
 
 use GoldOfficer\WeChat\Core\Config;
+use GoldOfficer\WeChat\Exception\WechatException;
 use GuzzleHttp\Client;
 
 /**
@@ -36,12 +37,15 @@ class WeChatLogin
         $client = self::getClient();
         try {
             $respone = $client->get($token_url);
+            $content = $respone->getBody()->getContents();
         } catch (\Exception $e) {
-            throw $e;
+            throw new WechatException($e->getMessage(), $e->getCode(), $e);
         }
-        if ('200' != $respone->getStatusCode()) {
-            
+        if (isset($content['errcode'])) {
+            throw new WechatException($content['errmsg'], $content['errcode'], null);
         }
+        
+        return $content;
         
     }
     
@@ -49,6 +53,18 @@ class WeChatLogin
     {
         $info_url = self::USERINFO_URI . '?access_token=' . $access_token . '&openid=' . $oppenid;
         
+        $client = self::getClient();
+        try {
+            $respone = $client->get($info_url);
+            $content = $respone->getBody()->getContents();
+        } catch (\Exception $e) {
+            throw new WechatException($e->getMessage(), $e->getCode(), $e);
+        }
+        if (isset($content['errcode'])) {
+            throw new WechatException($content['errmsg'], $content['errcode'], null);
+        }
+        
+        return $content;
     }
     
     /**
