@@ -35,7 +35,7 @@ class Config implements \JsonSerializable
     /**
      * @return mixed
      */
-    protected function getAppid()
+    public function getAppid()
     {
         return $this->appid;
     }
@@ -43,7 +43,7 @@ class Config implements \JsonSerializable
     /**
      * @return mixed
      */
-    protected function getSecret()
+    public function getSecret()
     {
         return $this->secret;
     }
