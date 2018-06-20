@@ -1,0 +1,15 @@
+{
+    "name"             : "goldofficer/wechat",
+    "description"      : "wechat login to app && wechat pay",
+    "type"             : "library",
+    "require"          : {
+        "php"               : ">=5.5.0",
+        "guzzlehttp/guzzle" : "^6.3"
+    },
+    "minimum-stability": "stable",
+    "autoload"         : {
+        "psr-4": {
+            "GoldOfficer\\WeChat\\": "src/"
+        }
+    }
+}
