@@ -44,7 +44,7 @@ class WeChatLogin
         }
         
         if (isset($content['errcode'])) {
-            throw new WechatException($content['errmsg'], $content['errcode'], null);
+            throw new WechatException($content['errmsg'], $content['errcode']);
         }
         
         return $content;
