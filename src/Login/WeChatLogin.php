@@ -38,14 +38,16 @@ class WeChatLogin
         try {
             $respone = $client->get($token_url);
             $content = $respone->getBody()->getContents();
+            $content = json_decode($content, true);
         } catch (\Exception $e) {
             throw new WechatException($e->getMessage(), $e->getCode(), $e);
         }
+        
         if (isset($content['errcode'])) {
             throw new WechatException($content['errmsg'], $content['errcode'], null);
         }
         
-        return json_decode($content, true);
+        return $content;
         
     }
     
@@ -57,14 +59,16 @@ class WeChatLogin
         try {
             $respone = $client->get($info_url);
             $content = $respone->getBody()->getContents();
+            $content = json_decode($content, true);
         } catch (\Exception $e) {
             throw new WechatException($e->getMessage(), $e->getCode(), $e);
         }
+        
         if (isset($content['errcode'])) {
             throw new WechatException($content['errmsg'], $content['errcode'], null);
         }
         
-        return json_decode($content, true);
+        return $content;
     }
     
     /**
