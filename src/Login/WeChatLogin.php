@@ -27,7 +27,7 @@ class WeChatLogin
         $this->config = $config;
     }
     
-    public function get_access_token($code)
+    public function getAccessToken($code)
     {
         $token_url = self::TOKEN_URI
                      . '?appid=' . $this->config->getAppid()
@@ -45,11 +45,11 @@ class WeChatLogin
             throw new WechatException($content['errmsg'], $content['errcode'], null);
         }
         
-        return $content;
+        return json_decode($content, true);
         
     }
     
-    public function get_userinfo($access_token, $oppenid)
+    public function getUserInfo($access_token, $oppenid)
     {
         $info_url = self::USERINFO_URI . '?access_token=' . $access_token . '&openid=' . $oppenid;
         
@@ -64,7 +64,7 @@ class WeChatLogin
             throw new WechatException($content['errmsg'], $content['errcode'], null);
         }
         
-        return $content;
+        return json_decode($content, true);
     }
     
     /**
